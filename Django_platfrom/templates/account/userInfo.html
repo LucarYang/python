@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}My account{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">账号信息</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div>
+            用户名
+            <input type="text"  class="form-control mr-sm-3 login_input" name="username" placeholder="用户名" a value="">
+            </div>
+            邮箱地址
+            <input type="text"  class="form-control mr-sm-3 login_input" name="email" placeholder="邮箱地址" avalue="">
+            <div class="radio-inline">
+                <label class="radio">
+                    <input type="radio" name="gender" value="1" checked="checked" />男
+                    <input type="radio" name="gender" value="0" checked="checked" />女
+                </label>
+            </div>
+            <input type="text"  class="form-control mr-sm-3 login_input" name="address" placeholder="住址" avalue="">
+        <button type="submit" class="btn btn-success">保存</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

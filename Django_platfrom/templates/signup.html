@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center logo my-4">
+            <a href="{% url 'home' %}">Django Platform</a>
+        </h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-10 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                    <h3 class="card-title">账号注册</h3>
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <input type="text"  class="form-control mr-sm-3 login_input" name="username" placeholder="用户名" a value="">
+                        <input type="text"  class="form-control mr-sm-3 login_input" name="email" placeholder="邮箱地址" avalue="">
+                        <input type="password"  class="form-control mr-sm-3 login_input" name="password" placeholder="密码" a value="">
+                        <input type="password"  class="form-control mr-sm-3 login_input" name="password1" placeholder="再次输入密码" avalue="">
+                        
+                        <button type="submit" class="btn btn-primary btn-block">创建用户</button>
+                    </form>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        您已经有账号了? 
+                        <a href="{% url 'login' %}" >登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

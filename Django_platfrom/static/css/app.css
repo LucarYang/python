@@ -1,0 +1,10 @@
+.navbar-brand {
+  font-family: 'Peralta', cursive;
+}
+.Board-table-td{
+  width: 30%
+}
+
+.login_input{
+  margin-bottom: 20px !important
+}
