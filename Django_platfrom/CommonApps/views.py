@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.conf import settings
 import json
 
 from .models import user
@@ -16,7 +18,9 @@ def log_in(func):
             return redirect('login')
         return  func(request,*args, **kwargs)
     return wrapper
-
+#全局变量 - userinfo
+def user_Info(request):
+    return {'userInfo': settings.LANGUAGE_CODE,'username':request.session.get("username")}
 
 @log_in
 def home(request):
@@ -52,5 +56,19 @@ def logout(request):
     del request.session['username']
     return redirect('home')
 
+@log_in
 def userInfo(request):
-    return render(request,'account/userInfo.html')
+    username=request.session.get("username")
+    userinfo = user.objects.get(username=username)
+    if userinfo.address==None:
+        userinfo.address=''
+        #return HttpResponse(userinfo.address)
+    if request.method != 'POST':
+         return render(request,'account/userInfo.html',{'userinfo':userinfo})
+    elif request.method == 'POST':
+        if request.POST['address']=='':
+            return render(request,'account/userInfo.html',{'userinfo':userinfo,'error':'地址不为空'})
+        else:
+            userinfo.address=request.POST['address']
+            userinfo.save()
+        return redirect('home')
