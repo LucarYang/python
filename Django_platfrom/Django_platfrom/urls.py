@@ -19,6 +19,7 @@ from django.conf.urls import url
 
 from CommonApps import views
 from gameConfig import views as game_views
+from game_issue import views as issue_views
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
@@ -28,4 +29,5 @@ urlpatterns = [
     url(r'^userInfo/$', views.userInfo, name='userInfo'),
     path('admin/', admin.site.urls),
     url(r'^gameList/$', game_views.gameList, name='gameList'),
+    url(r'^issue_upload/$', issue_views.uploadIssue, name='uploadIssue'),
 ]

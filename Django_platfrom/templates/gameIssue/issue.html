@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}My account{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">游戏事件</li>
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <form action="{% url 'uploadIssue' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" style="width: 50%" name="file" id="filename">
+        <button class="btn btn-primary-outline radius size-S" type="submit">提交</button>
+        {{message}}
+    </form>
+
+    <div class="card">
+    <div class="card-body">
+        <table class="table table-hover thead-dark">
+            <thead>
+                <tr class="th-gamelist">
+                <th>游戏ID</th>
+                <th>区服ID</th>
+                <th>通行账号</th>
+                <th>角色名</th>
+                <th>创建日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issueList %}
+                    <tr>
+                        <td>{{issue.GameId}}</td>
+                        <td>{{issue.AreaId}}</td>
+                        <td>{{issue.SndaId}}</td>
+                        <td>{{issue.RoleName}}</td>
+                        <td>{{issue.OpenId}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="pagination">
+        {% comment %} <span class="step-links">
+            {% if issueList.has_previous %}
+                <a href="?page={{ issueList.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ issueList.number }} of {{ issueList.paginator.num_pages }}.
+            </span>
+
+            {% if issueList.has_next %}
+                <a href="?page={{ issueList.next_page_number }}">next</a>
+            {% endif %}
+        </span> {% endcomment %}
+        <span class="current">
+                Page {{ issueList.number }} of {{ issueList.paginator.num_pages }}.
+            </span>     
+        <ul class="pagination">
+            {% if issueList.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ issueList.previous_page_number }}"><span aria-hidden="true">&laquo;</span></a></li>
+            {% endif %}
+            <li class="page-item active"><a class="page-link" href="?page=1">1</a></li>
+            {% if issueList.number < 5 %}
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link">...</a></li>
+            {% endif %}
+
+
+
+            {% if issueList.number > 94 %}
+                <li class="page-item"><a class="page-link">...</a></li>
+                <li class="page-item"><a class="page-link" href="#">97</a></li>
+                <li class="page-item"><a class="page-link" href="#">98</a></li>
+                <li class="page-item"><a class="page-link" href="#">99</a></li>
+            {% endif %}
+
+
+
+            
+            {% comment %} <li class="page-item"><a class="page-link">...</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">5</a></li>
+            <li class="page-item"><a class="page-link" href="#">6</a></li>
+            <li class="page-item"><a class="page-link">...</a></li> {% endcomment %}
+            <li class="page-item"><a class="page-link" href="?page={{issueList.paginator.num_pages}}">{{issueList.paginator.num_pages}}</a></li>
+            {% if issueList.has_next %}
+                <li class="page-item"><a class="page-link"  href="?page={{ issueList.next_page_number }}"><span aria-hidden="true">&raquo;</span></a></li>
+            {% endif %}
+        </ul>
+ </div>
+
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+</script>
+{% endblock %}

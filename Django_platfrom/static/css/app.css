@@ -147,3 +147,8 @@
 .sidebar-menu .treeview-menu>li>a:hover {
   color: #fff
 }
+
+.th-gamelist{
+  background-color: #222d32;
+  color: #fff
+}
